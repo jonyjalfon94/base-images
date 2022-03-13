@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest 
     name: Detect Changed Paths
     outputs:
-      changed-paths: "'${{ steps.changed-files.outputs.all_changed_files }}'"
+      changed-paths: ${{ steps.array.outputs.build }}
     steps:
       - uses: actions/checkout@v2
         with:
@@ -25,9 +25,15 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v17.3
         with:
-          separator: "', '"
+          separator: ", "
           files: |
             **/Dockerfile
+
+      - uses: kanga333/json-array-builder@master
+        id: array
+        with:
+          separator: ","
+          str: ${{ steps.changed-files.outputs.all_changed_files }}
 
   build:
     runs-on: ubuntu-latest
@@ -35,7 +41,7 @@ jobs:
     name: Detect Changed Paths
     strategy:
       matrix:
-        changed-paths: ['${{ needs.changes.outputs.changed-paths }}']
+        changed-paths: ${{ fromJson(needs.changes.outputs.changed-paths) }}
 
     steps:
       - name: Echo file
