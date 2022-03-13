@@ -27,7 +27,7 @@ jobs:
         with:
           separator: ','
           files_ignore: |
-            .github/**
+            .github
             README.md
 
       - name: List all changed files
