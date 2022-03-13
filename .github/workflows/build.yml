@@ -25,7 +25,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v17.3
         with:
-          separator: ", "
+          separator: ","
           files: |
             **/Dockerfile
 
@@ -69,13 +69,13 @@ jobs:
         name: Build and Push Docker Image
         with:
           push: true
-          image_name: ${{ steps.set-vars.outputs.image }}
-          tag: ${{ steps.set-vars.outputs.tag }}
-          context: ${{ steps.set-vars.outputs.context }}
+          image_name: ${{steps.set-vars.outputs.image}}
+          tag: ${{steps.set-vars.outputs.tag}}
+          context: ${{steps.set-vars.outputs.context}}
           docker_username: jonyjalfon94
-          docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          docker_password: ${{secrets.DOCKERHUB_PASSWORD}}
           build_args: |
-            SERVICE_COMMIT=${{ github.sha }}
-            SERVICE_NAME=${{ env.SERVICE_NAME }}
-            SERVICE_VERSION=${{ github.sha }}
-            SERVICE_BUILD_TIME=${{ steps.date.outputs.date }}
+            SERVICE_COMMIT=${{github.sha}}
+            SERVICE_NAME=${{steps.set-vars.outputs.image}}
+            SERVICE_VERSION=${{github.sha}}
+            SERVICE_BUILD_TIME=${{steps.date.outputs.date}}
