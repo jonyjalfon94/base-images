@@ -30,7 +30,8 @@ jobs:
             **/Dockerfile
 
   build:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
+    needs: [changes]
     name: Detect Changed Paths
     strategy:
       matrix:
