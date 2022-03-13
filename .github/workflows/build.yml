@@ -35,7 +35,7 @@ jobs:
     name: Detect Changed Paths
     strategy:
       matrix:
-        changed-paths: ${{ needs.changes.outputs.changed-paths }}
+        changed-paths: ["${{ needs.changes.outputs.changed-paths }}"]
 
     steps:
       - name: Echo file
