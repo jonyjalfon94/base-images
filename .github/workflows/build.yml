@@ -61,6 +61,7 @@ jobs:
           DOCKERFILE_PATH: ${{ matrix.changed-paths }}
         run: |
           PATH_WITHOUT_DOCKERFILE=${DOCKERFILE_PATH%*/Dockerfile}
+          echo "::set-output name=context::${PATH_WITHOUT_DOCKERFILE}"
           echo "::set-output name=image::${PATH_WITHOUT_DOCKERFILE%/*}"
           echo "::set-output name=tag::${PATH_WITHOUT_DOCKERFILE#*/}"
       
@@ -70,6 +71,7 @@ jobs:
           push: true
           image_name: ${{ steps.set-vars.outputs.image }}
           tag: ${{ steps.set-vars.outputs.tag }}
+          context: ${{ steps.set-vars.outputs.context }}
           docker_username: jonyjalfon94
           docker_password: ${{ secrets.DOCKERHUB_PASSWORD }}
           build_args: |
