@@ -13,7 +13,7 @@ on:
 jobs:
   changes:
     runs-on: ubuntu-latest 
-    name: Detect Changed Paths
+    name: Detect Changed Dockerfiles
     outputs:
       changed-paths: ${{ steps.array.outputs.build }}
     steps:
