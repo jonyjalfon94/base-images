@@ -29,7 +29,7 @@ jobs:
           files: |
             **/Dockerfile
 
-      - uses: kanga333/json-array-builder@master
+      - uses: kanga333/json-array-builder@v0.1.0
         id: array
         with:
           separator: ","
