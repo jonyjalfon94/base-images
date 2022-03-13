@@ -29,6 +29,13 @@ jobs:
           files: |
             **/Dockerfile
 
-      - name: List all changed files
-        run: |
-          echo "[ ${{ steps.changed-files.outputs.all_changed_files }} ]"
+  build:
+    runs-on: ubuntu-latest 
+    name: Detect Changed Paths
+    strategy:
+      matrix:
+        changed-paths: ${{ needs.changes.outputs.changed-paths }}
+
+    steps:
+      - name: Echo file
+        run: echo ${{ matrix.changed-paths }}
