@@ -42,7 +42,12 @@ jobs:
     strategy:
       matrix:
         changed-paths: ${{ fromJson(needs.changes.outputs.changed-paths) }}
-
     steps:
       - name: Echo file
-        run: echo ${{ matrix.changed-paths }}
+        env:
+          DOCKERFILE_PATH: ${{ matrix.changed-paths }}
+        run: |
+          PATH_WITHOUT_DOCKERFILE=${DOCKERFILE_PATH%*/Dockerfile}
+          IMAGE=${PATH_WITHOUT_DOCKERFILE%/*}
+          TAG=${PATH_WITHOUT_DOCKERFILE#*/}
+          echo "${IMAGE}:${TAG}"
