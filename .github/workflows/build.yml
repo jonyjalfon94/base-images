@@ -26,6 +26,9 @@ jobs:
         uses: tj-actions/changed-files@v17.3
         with:
           separator: ','
+          files-ignore: |
+            .github/**
+            README.md
 
       - name: List all changed files
         run: |
