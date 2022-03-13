@@ -43,6 +43,18 @@ jobs:
       matrix:
         changed-paths: ${{ fromJson(needs.changes.outputs.changed-paths) }}
     steps:
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Get composite run steps repository
+        uses: actions/checkout@v2
+        with:
+          repository: jonyjalfon94/workflow-templates
+          token: ${{ secrets.TOKEN }}
+          path: .github
+
       - name: Set image and tag
         id: set-vars
         env:
@@ -52,7 +64,6 @@ jobs:
           echo "::set-output name=image::${PATH_WITHOUT_DOCKERFILE%/*}"
           echo "::set-output name=tag::${PATH_WITHOUT_DOCKERFILE#*/}"
       
-      # Build and Push with Docker
       - uses: ./.github/actions/build-and-push-docker-2
         name: Build and Push Docker Image
         with:
