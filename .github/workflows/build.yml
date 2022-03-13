@@ -11,9 +11,11 @@ on:
       - main
 
 jobs:
-  build:
+  changes:
     runs-on: ubuntu-latest 
-    name: Test changed-files
+    name: Detect Changed Paths
+    outputs:
+      changed-paths: ${{ steps.changed-files.outputs.all_changed_files }}
     steps:
       - uses: actions/checkout@v2
         with:
