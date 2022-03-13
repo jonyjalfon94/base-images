@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest 
     name: Detect Changed Paths
     outputs:
-      changed-paths: "['${{ steps.changed-files.outputs.all_changed_files }}']"
+      changed-paths: "'${{ steps.changed-files.outputs.all_changed_files }}'"
     steps:
       - uses: actions/checkout@v2
         with:
@@ -35,7 +35,7 @@ jobs:
     name: Detect Changed Paths
     strategy:
       matrix:
-        changed-paths: ${{ needs.changes.outputs.changed-paths }}
+        changed-paths: ['${{ needs.changes.outputs.changed-paths }}']
 
     steps:
       - name: Echo file
